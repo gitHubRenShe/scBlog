@@ -27,6 +27,7 @@ import java.util.Objects;
  */
 @Service
 public class SystemLoginServiceImpl implements LoginService {
+
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -56,10 +57,12 @@ public class SystemLoginServiceImpl implements LoginService {
 
     @Override
     public ResponseResult logout() {
-        //删除redis的token值
+        //获取当前登录的用户id
         Long userId = SecurityUtils.getUserId();
+        //删除redis中对应的值
         redisCache.deleteObject("login:"+userId);
-
         return ResponseResult.okResult();
     }
+
+
 }

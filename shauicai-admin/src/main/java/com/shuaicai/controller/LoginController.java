@@ -21,18 +21,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * @ClassName LoginController
- * @Description TODO
- * @Author shuai cai
- * @Date 2022/8/25 21:08
- * @PackagePath com.shuaicai.controller
- * @Version 1.0
- */
 @RestController
-@ResponseBody
 public class LoginController {
-
     @Autowired
     private LoginService loginService;
 
@@ -40,47 +30,52 @@ public class LoginController {
     private MenuService menuService;
 
     @Autowired
-    private RedisCache redisCache;
-
-    @Autowired
     private RoleService roleService;
+
 
     @PostMapping("/user/login")
     public ResponseResult login(@RequestBody User user){
-        if (!StringUtils.hasText(user.getUserName())){
+        if(!StringUtils.hasText(user.getUserName())){
+            //提示 必须要传用户名
             throw new SystemException(AppHttpCodeEnum.REQUIRE_USERNAME);
         }
         return loginService.login(user);
     }
 
-    @GetMapping("getInfo")
+    @PostMapping("/user/logout")
+    public ResponseResult logout(){
+        return loginService.logout();
+    }
+
+
+
+    @GetMapping("/getInfo")
     public ResponseResult<AdminUserInfoVo> getInfo(){
         //获取当前登录的用户
         LoginUser loginUser = SecurityUtils.getLoginUser();
-        User user = loginUser.getUser();
         //根据用户id查询权限信息
-        List<String> perms = menuService.selectPermsByUserId(user.getId());
+        List<String> perms = menuService.selectPermsByUserId(loginUser.getUser().getId());
         //根据用户id查询角色信息
-        List<String> roleKeyList = roleService.selectRoleKeyByUserId(user.getId());
+        List<String> roleKeyList = roleService.selectRoleKeyByUserId(loginUser.getUser().getId());
 
+        //获取用户信息
+        User user = loginUser.getUser();
+        UserInfoVo userInfoVo = BeanCopyUtils.copyBean(user, UserInfoVo.class);
         //封装数据返回
 
-        UserInfoVo userInfoVo = BeanCopyUtils.copyBean(user, UserInfoVo.class);
-        AdminUserInfoVo adminUserInfo = new AdminUserInfoVo(perms,roleKeyList,userInfoVo);
-        return ResponseResult.okResult(adminUserInfo);
+        AdminUserInfoVo adminUserInfoVo = new AdminUserInfoVo(perms,roleKeyList,userInfoVo);
+        return ResponseResult.okResult(adminUserInfoVo);
     }
 
-    @GetMapping("getRouters")
+
+    @GetMapping("/getRouters")
     public ResponseResult<RoutersVo> getRouters(){
-        //查询menu 结果返回tree的形式
         Long userId = SecurityUtils.getUserId();
+        //查询menu 结果是tree的形式
         List<Menu> menus = menuService.selectRouterMenuTreeByUserId(userId);
         //封装数据返回
-        return ResponseResult.okResult(new RoutersVo(menus));
+        RoutersVo routersVo = new RoutersVo(menus);
+        return ResponseResult.okResult(routersVo);
     }
-    @PostMapping("/user/logout")
-    public ResponseResult logout(){
 
-        return loginService.logout();
-    }
 }

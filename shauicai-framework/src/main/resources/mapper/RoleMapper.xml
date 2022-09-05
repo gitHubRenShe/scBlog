@@ -3,11 +3,13 @@
 <mapper namespace="com.shuaicai.mapper.RoleMapper">
     <select id="selectRoleKeyByUserId" resultType="java.lang.String">
         SELECT
-            r.role_key
+            r.`role_key`
         FROM
-            sys_user_role ur
-                LEFT JOIN sys_role r ON ur.role_id = r.id
-        where
-            ur.user_id = #{userId} and r.`status` = 0 and r.del_flag = 0;
+            `sys_user_role` ur
+            LEFT JOIN `sys_role` r ON ur.`role_id` = r.`id`
+        WHERE
+            ur.`user_id` = #{userId} AND
+            r.`status` = 0 AND
+            r.`del_flag` = 0
     </select>
 </mapper>

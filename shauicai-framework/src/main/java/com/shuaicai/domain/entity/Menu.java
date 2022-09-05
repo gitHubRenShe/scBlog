@@ -1,11 +1,13 @@
 package com.shuaicai.domain.entity;
 
-import java.sql.Date;
-
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.serializer.ToStringSerializer;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,13 +28,18 @@ import lombok.experimental.Accessors;
 @TableName("sys_menu")
 @Accessors(chain = true)
 public class Menu  {
+//    @JSONField(serializeUsing = ToStringSerializer.class)
     //菜单ID
+//    @JsonSerialize(using = com.fasterxml.jackson.databind.ser.std.ToStringSerializer.class)
+    @JSONField(serializeUsing = ToStringSerializer.class)
     @TableId
     private Long id;
 
     //菜单名称
     private String menuName;
     //父菜单ID
+//    @JsonSerialize(using = com.fasterxml.jackson.databind.ser.std.ToStringSerializer.class)
+    @JSONField(serializeUsing = ToStringSerializer.class)
     private Long parentId;
     //显示顺序
     private Integer orderNum;
@@ -55,17 +62,17 @@ public class Menu  {
     //创建者
     private Long createBy;
     //创建时间
-    private Date createTime;
+    private java.util.Date createTime;
     //更新者
     private Long updateBy;
     //更新时间
     private Date updateTime;
     //备注
     private String remark;
-    
+
     private String delFlag;
+
     @TableField(exist = false)
     private List<Menu> children;
-
 }
 

@@ -22,14 +22,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Objects;
 
-/**
- * @ClassName JwtAuthenticationTokenFilter
- * @Description TODO
- * @Author shuai cai
- * @Date 2022/8/21 16:46
- * @PackagePath com.shuaicai.filter
- * @Version 1.0
- */
 @Component
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
