@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.shuaicai.domain.ResponseResult;
 import com.shuaicai.domain.dto.TagListDto;
 import com.shuaicai.domain.entity.Tag;
+import com.shuaicai.domain.vo.TagIdVo;
 
 
 /**
@@ -20,5 +21,9 @@ public interface TagService extends IService<Tag> {
     ResponseResult insertTag(Tag tag);
 
     ResponseResult listAllTag();
+
+    ResponseResult getTagId(Long id);
+
+    ResponseResult updateTagId(TagIdVo tagIdVo);
 }
 

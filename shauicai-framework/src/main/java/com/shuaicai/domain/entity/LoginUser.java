@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * @ClassName LoginUser
@@ -23,6 +24,14 @@ import java.util.Collection;
 public class LoginUser implements UserDetails {
 
     private User user;
+
+    private List<String> permissions;
+
+    public LoginUser(User user) {
+        this.user = user;
+    }
+
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -7,6 +7,7 @@ import com.shuaicai.domain.ResponseResult;
 import com.shuaicai.domain.dto.TagListDto;
 import com.shuaicai.domain.entity.Tag;
 import com.shuaicai.domain.vo.PageVo;
+import com.shuaicai.domain.vo.TagIdVo;
 import com.shuaicai.domain.vo.TagVo;
 import com.shuaicai.enums.AppHttpCodeEnum;
 import com.shuaicai.exception.SystemException;
@@ -64,6 +65,26 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
         List<Tag> list = list(lambdaQueryWrapper);
         List<TagVo> tagVos = BeanCopyUtils.copyBeanList(list, TagVo.class);
         return ResponseResult.okResult(tagVos);
+    }
+
+    @Override
+    public ResponseResult getTagId(Long id) {
+
+        Tag byId = getById(id);
+        if (byId == null){
+            throw new SystemException(AppHttpCodeEnum.OBJEKT_NOT_NULL);
+        }
+        TagIdVo tagIdVo = BeanCopyUtils.copyBean(byId, TagIdVo.class);
+        return ResponseResult.okResult(tagIdVo);
+    }
+
+    @Override
+    public ResponseResult updateTagId(TagIdVo tagIdVo) {
+        //将tagIdVo拷贝到Tag标签实体类
+        Tag tag = BeanCopyUtils.copyBean(tagIdVo, Tag.class);
+        updateById(tag);
+
+        return ResponseResult.okResult();
     }
 }
 
