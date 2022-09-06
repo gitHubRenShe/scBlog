@@ -70,11 +70,11 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
     @Override
     public ResponseResult getTagId(Long id) {
 
-        Tag byId = getById(id);
-        if (byId == null){
+        Tag tag = getById(id);
+        if (tag == null){
             throw new SystemException(AppHttpCodeEnum.OBJEKT_NOT_NULL);
         }
-        TagIdVo tagIdVo = BeanCopyUtils.copyBean(byId, TagIdVo.class);
+        TagIdVo tagIdVo = BeanCopyUtils.copyBean(tag, TagIdVo.class);
         return ResponseResult.okResult(tagIdVo);
     }
 
@@ -84,6 +84,17 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
         Tag tag = BeanCopyUtils.copyBean(tagIdVo, Tag.class);
         updateById(tag);
 
+        return ResponseResult.okResult();
+    }
+
+    //删除标签
+    @Override
+    public ResponseResult deleteTagId(Long id) {
+        Tag tag = getById(id);
+        if (tag == null){
+            throw new SystemException(AppHttpCodeEnum.OBJEKT_NOT_NULL);
+        }
+        removeById(id);
         return ResponseResult.okResult();
     }
 }

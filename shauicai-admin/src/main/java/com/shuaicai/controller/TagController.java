@@ -21,49 +21,45 @@ import org.springframework.web.bind.annotation.*;
  * @Version 1.0
  */
 @RestController
-@RequestMapping("/content/tag")
+@RequestMapping("/content")
 public class TagController {
 
     @Autowired
     private TagService tagService;
 
-    @GetMapping("/list")
+    @GetMapping("/tag/list")
     public ResponseResult<PageVo> list(Integer pageNum, Integer pageSize, TagListDto tagListDto){
 
         return tagService.pageTagList(pageNum,pageSize,tagListDto);
     }
 
-    @PostMapping
+    @PostMapping("/tag")
     public ResponseResult insertTag(@RequestBody Tag tag){
 
         return tagService.insertTag(tag);
     }
 
     //删除标签
-    @DeleteMapping("{id}")
-    public ResponseResult deleteId(@PathVariable("id") Long id){
-        if (id == null){
-            throw new SystemException(AppHttpCodeEnum.TAGID_NOT_NULL);
-        }
-        tagService.removeById(id);
+    @DeleteMapping("/tag/{id}")
+    public ResponseResult deleteTagId(@PathVariable("id") Long id){
 
-        return ResponseResult.okResult();
+        return tagService.deleteTagId(id);
     }
 
     //修改标签
-    @GetMapping("{id}")
+    @GetMapping("/tag/{id}")
     public ResponseResult getId(@PathVariable("id") Long id){
 
         return tagService.getTagId(id);
     }
-    @PutMapping
+    @PutMapping("/tag")
     public ResponseResult updateTagId(@RequestBody TagIdVo tagIdVo){
 
         return tagService.updateTagId(tagIdVo);
     }
 
     //查询所有标签接口
-    @GetMapping("/listAllTag")
+    @GetMapping("/tag/listAllTag")
     public ResponseResult listAllTag(){
         return tagService.listAllTag();
     }

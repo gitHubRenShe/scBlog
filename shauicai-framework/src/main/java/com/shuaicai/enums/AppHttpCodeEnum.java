@@ -20,7 +20,6 @@ public enum AppHttpCodeEnum {
     PASSWORD_NOT_NULL(510, "密码不能为空"),
     EMAIL_NOT_NULL(511, "邮箱不能为空"),
     LOGIN_ERROR(505, "用户名或密码错误"),
-    TAGID_NOT_NULL(512,"要删除的id不允许为空"),
     OBJEKT_NOT_NULL(513,"对象为空");
 
     int code;
