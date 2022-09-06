@@ -1,6 +1,5 @@
 package com.shuaicai.service.impl;
 
-import ch.qos.logback.core.joran.util.beans.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -20,13 +19,13 @@ import com.shuaicai.service.CategoryService;
 import com.shuaicai.utils.BeanCopyUtils;
 import com.shuaicai.domain.vo.HotArticleVo;
 import com.shuaicai.utils.RedisCache;
+import com.shuaicai.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -141,6 +140,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     public ResponseResult add(AddArticleDto articleDto) {
         //将Dto拷贝到Article文章实体类
         Article article = BeanCopyUtils.copyBean(articleDto, Article.class);
+        Long userId = SecurityUtils.getUserId();
+        article.setCategoryId(userId);
         //添加文章
         save(article);
 

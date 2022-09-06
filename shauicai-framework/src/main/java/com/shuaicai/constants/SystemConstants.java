@@ -36,7 +36,7 @@ public class SystemConstants
     /**
      * 存储到redis的浏览量key名
      */
-    public static final String ARTICLE_VIEWCOUNTMAP = "article:viewCountMap";
+    public static final String ARTICLE_VIEWCOUNTMAP = "article:viewCount";
     /**
      *  类型为菜单
      */

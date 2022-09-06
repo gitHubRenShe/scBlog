@@ -31,7 +31,7 @@ public class Menu  {
 //    @JSONField(serializeUsing = ToStringSerializer.class)
     //菜单ID
 //    @JsonSerialize(using = com.fasterxml.jackson.databind.ser.std.ToStringSerializer.class)
-    @JSONField(serializeUsing = ToStringSerializer.class)
+//    @JSONField(serializeUsing = ToStringSerializer.class)
     @TableId
     private Long id;
 
@@ -39,7 +39,7 @@ public class Menu  {
     private String menuName;
     //父菜单ID
 //    @JsonSerialize(using = com.fasterxml.jackson.databind.ser.std.ToStringSerializer.class)
-    @JSONField(serializeUsing = ToStringSerializer.class)
+//    @JSONField(serializeUsing = ToStringSerializer.class)
     private Long parentId;
     //显示顺序
     private Integer orderNum;

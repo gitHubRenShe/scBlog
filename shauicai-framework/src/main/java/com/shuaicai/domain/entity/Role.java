@@ -1,6 +1,6 @@
 package com.shuaicai.domain.entity;
 
-import java.sql.Date;
+import java.util.Date;
 
 import java.io.Serializable;
 import lombok.AllArgsConstructor;

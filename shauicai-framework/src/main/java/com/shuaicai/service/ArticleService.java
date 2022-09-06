@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.shuaicai.domain.ResponseResult;
 import com.shuaicai.domain.dto.AddArticleDto;
 import com.shuaicai.domain.entity.Article;
+import org.springframework.stereotype.Service;
 
 /**
  * @ClassName ArticleService
@@ -23,4 +24,5 @@ public interface ArticleService extends IService<Article> {
     ResponseResult updateViewCount(Long id);
     //写博文
     ResponseResult add(AddArticleDto articleDto);
+
 }

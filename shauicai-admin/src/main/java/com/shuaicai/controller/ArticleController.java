@@ -3,6 +3,7 @@ package com.shuaicai.controller;
 import com.shuaicai.domain.ResponseResult;
 import com.shuaicai.domain.dto.AddArticleDto;
 import com.shuaicai.service.ArticleService;
+import com.shuaicai.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +23,7 @@ public class ArticleController {
     //写博文
     @PostMapping
     public ResponseResult add(@RequestBody AddArticleDto articleDto){
+
         return articleService.add(articleDto);
     }
 

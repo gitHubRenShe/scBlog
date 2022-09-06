@@ -86,7 +86,7 @@ public class OssUploadServiceImpl implements UploadService {
             //ignore
 
         }
-        return "ooo";
+        return "cuowu";
     }
 
 }
